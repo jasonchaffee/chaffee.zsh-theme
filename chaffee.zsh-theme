@@ -32,9 +32,9 @@ function user_prompt_info() {
 if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   JAVA_PROMPT_PREFIX="%{$fg[yellow]%}jvm%{$reset_color%}:%{$fg[magenta]%}%"
 
-  PROMPT='$(return_prompt_color)$(return_prompt_info)%{$reset_color%} $(java_prompt_info) %{$fg[cyan]%}%3~$(git_prompt_info) $(user_prompt_color)$(user_prompt_info)%{$reset_color%} '
+  PROMPT='$(return_prompt_color)$(return_prompt_info)%{$reset_color%} $(java_prompt_info) %{$fg[cyan]%}%3~ $(git_prompt_info) $(user_prompt_color)$(user_prompt_info)%{$reset_color%} '
 
-  ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[yellow]%}git%{$reset_color%}:%{$fg[red]%}"
+  ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}git%{$reset_color%}:%{$fg[red]%}"
   ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
   ZSH_THEME_GIT_PROMPT_DIRTY=""
   ZSH_THEME_GIT_PROMPT_CLEAN=""
@@ -48,9 +48,9 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[yellow]%} ═"
   ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[cyan]%} ✭"
 else
-  PROMPT='$(return_prompt_info) $(java_prompt_info) %3~$(git_prompt_info) $(user_prompt_info) '
+  PROMPT='$(return_prompt_info) $(java_prompt_info) %3~ $(git_prompt_info) $(user_prompt_info) '
 
-  ZSH_THEME_GIT_PROMPT_PREFIX=" git:"
+  ZSH_THEME_GIT_PROMPT_PREFIX="git:"
   ZSH_THEME_GIT_PROMPT_SUFFIX=""
   ZSH_THEME_GIT_PROMPT_DIRTY=""
   ZSH_THEME_GIT_PROMPT_CLEAN=""
