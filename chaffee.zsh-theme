@@ -1,12 +1,38 @@
 # chaffee.zsh-theme
 
+# Currently used symbols:
+# ⚡ ⏎ ✘ λ ✚ ✹ ✖ ➜ ═ ✭
+
+# More symbols to choose from:
+# ☀ ✹ ☄ ♆ ♀ ♁ ♐ ♇ ♈ ♉ ♚ ♛ ♜ ♝ ♞ ♟ ♠ ♣ ⚢ ⚲ ⚳ ⚴ ⚥ ⚤ ⚦ ⚒ ⚑ ⚐ ♺ ♻ ♼ ☰ ☱ ☲ ☳ ☴ ☵ ☶ ☷
+# ✡ ✔ ✖ ✚ ✱ ✤ ✦ ❤ ➜ ➟ ➼ ✂ ✎ ✐ ⨀ ⨁ ⨂ ⨍ ⨎ ⨏ ⨷ ⩚ ⩛ ⩡ ⩱ ⩲ ⩵  ⩶ ⨠
+# ⬅ ⬆ ⬇ ⬈ ⬉ ⬊ ⬋ ⬒ ⬓ ⬔ ⬕ ⬖ ⬗ ⬘ ⬙ ⬟  ⬤ 〒 ǀ ǁ ǂ ĭ Ť Ŧ
+#  ±  ➦ ✘ ⚡ ⚙
+
+function java_prompt_info() {
+  echo "$JAVA_PROMPT_PREFIX $(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \" | tr -d 'java version')"
+}
+
+function return_prompt_color() {
+  echo "%(?.%{$reset_color%}.%{$fg_bold[red]%})"
+}
+
+function return_prompt_info() {
+  echo "%(?.⏎.✘)"
+}
+
+function user_prompt_color() {
+  echo "%(!.%{$fg_bold[red]%}.%{$fg_bold[green]%})"
+}
+
+function user_prompt_info() {
+  echo "%(!.⚡ λ.λ)"
+}
+
 if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
-  MODE_INDICATOR="%{$fg_bold[red]%}❮%{$reset_color%}%{$fg[red]%}❮❮%{$reset_color%}"
-  local return_status="%(?.%{$fg[green]%}⏎.%{$fg[red]%}⏎)%{$reset_color%}"
+  JAVA_PROMPT_PREFIX="%{$fg[yellow]%}jvm%{$reset_color%}:%{$fg[magenta]%}%"
 
-  JAVA_PROMPT="%{$fg[yellow]%}jvm%{$reset_color%}:%{$fg[magenta]%}% $(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \" | tr -d 'java version')"
-
-  PROMPT='%(?.%{$reset_color%}⏎.%{$fg[red]%}⏎)%{$reset_color%} ${JAVA_PROMPT} %{$fg[cyan]%}%c$(git_prompt_info) %(!.%{$fg_bold[red]%}#.%{$fg_bold[green]%}λ)%{$reset_color%} '
+  PROMPT='$(return_prompt_color)$(return_prompt_info)%{$reset_color%} $(java_prompt_info) %{$fg[cyan]%}%3~$(git_prompt_info) $(user_prompt_color)$(user_prompt_info)%{$reset_color%} '
 
   ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[yellow]%}git%{$reset_color%}:%{$fg[red]%}"
   ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
@@ -21,11 +47,8 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[magenta]%} ➜"
   ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[yellow]%} ═"
   ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[cyan]%} ✭"
-else 
-  MODE_INDICATOR="❮❮❮"
-  local return_status="%(?::⏎)"
-  
-  PROMPT='%(?.%{$fg[green]%}⏎.%{$fg[red]%}⏎)%{$reset_color%} %c$(git_prompt_info) %(!.#.λ) '
+else
+  PROMPT='$(return_prompt_info) $(java_prompt_info) %3~$(git_prompt_info) $(user_prompt_info) '
 
   ZSH_THEME_GIT_PROMPT_PREFIX=" git:"
   ZSH_THEME_GIT_PROMPT_SUFFIX=""
