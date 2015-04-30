@@ -2,9 +2,11 @@
 
 if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   MODE_INDICATOR="%{$fg_bold[red]%}❮%{$reset_color%}%{$fg[red]%}❮❮%{$reset_color%}"
-  local return_status="%{$fg[red]%}%(?..⏎)%{$reset_color%}"
-  
-  PROMPT='%(?.%{$fg[green]%}⏎.%{$fg[red]%}⏎)%{$reset_color%} %{$fg[cyan]%}%c$(git_prompt_info) %(!.%{$fg_bold[red]%}#.%{$fg_bold[green]%}λ)%{$reset_color%} '
+  local return_status="%(?.%{$fg[green]%}⏎.%{$fg[red]%}⏎)%{$reset_color%}"
+
+  JAVA_PROMPT="%{$fg[yellow]%}jvm%{$reset_color%}:%{$fg[magenta]%}% $(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \" | tr -d 'java version')"
+
+  PROMPT='%(?.%{$reset_color%}⏎.%{$fg[red]%}⏎)%{$reset_color%} ${JAVA_PROMPT} %{$fg[cyan]%}%c$(git_prompt_info) %(!.%{$fg_bold[red]%}#.%{$fg_bold[green]%}λ)%{$reset_color%} '
 
   ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[yellow]%}git%{$reset_color%}:%{$fg[red]%}"
   ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
