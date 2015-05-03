@@ -29,6 +29,14 @@ function user_prompt_info() {
   echo "%(!.⚡ λ.λ)"
 }
 
+function time_prompt_info() {
+  echo "%D{%L:%M:%S}"
+}
+
+function time_period_prompt_info() {
+  echo "%D{%p}"
+}
+
 if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   HOST_PROMPT_="%{$fg_bold[red]%}@$HOST[0,10] ➜ %{$reset_color%}"
 
@@ -36,7 +44,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
 
   if command -v javac >/dev/null 2>&1; then
     JAVA_PROMPT_PREFIX="%{$fg[yellow]%}jdk%{$reset_color%}:%{$fg[magenta]%}%"
-  elif
+  else
     JAVA_PROMPT_PREFIX="%{$fg[red]%}java%{$reset_color%}:%{$fg[magenta]%}%"
   fi
 
@@ -45,7 +53,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   ZSH_THEME_GIT_PROMPT_DIRTY=""
   ZSH_THEME_GIT_PROMPT_CLEAN=""
 
-  RPROMPT='$(git_prompt_status)%{$reset_color%} %F{green}%D{%L:%M:%S} %F{yellow}%D{%p}%f'
+  RPROMPT='$(git_prompt_status)%{$reset_color%} %F{green}$(time_prompt_info) %F{yellow}$(time_period_prompt_info)%f'
 
   ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%} ✚"
   ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[blue]%} ✹"
@@ -64,7 +72,7 @@ else
   ZSH_THEME_GIT_PROMPT_DIRTY=""
   ZSH_THEME_GIT_PROMPT_CLEAN=""
 
-  RPROMPT='$(git_prompt_status) %F{green}%D{%L:%M:%S} %F{yellow}%D{%p}%f'
+  RPROMPT='$(git_prompt_status) $(time_prompt_info) $(time_period_prompt_info)'
 
   ZSH_THEME_GIT_PROMPT_ADDED=" ✚"
   ZSH_THEME_GIT_PROMPT_MODIFIED=" ✹"
