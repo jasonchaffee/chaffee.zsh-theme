@@ -34,7 +34,12 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
 
   PROMPT='$(return_prompt_color)$(return_prompt_info)%{$reset_color%} $(java_prompt_info) %{$fg[cyan]%}%3~ $(git_prompt_info) $(user_prompt_color)$(user_prompt_info)%{$reset_color%} '
 
-  JAVA_PROMPT_PREFIX="%{$fg[yellow]%}java%{$reset_color%}:%{$fg[magenta]%}%"
+  if command -v javac >/dev/null 2>&1; then
+    JAVA_PROMPT_PREFIX="%{$fg[yellow]%}jdk%{$reset_color%}:%{$fg[magenta]%}%"
+  elif
+    JAVA_PROMPT_PREFIX="%{$fg[red]%}java%{$reset_color%}:%{$fg[magenta]%}%"
+  fi
+
   ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}git%{$reset_color%}:%{$fg[red]%}"
   ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
   ZSH_THEME_GIT_PROMPT_DIRTY=""
