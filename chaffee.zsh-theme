@@ -62,7 +62,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[yellow]%} ═"
   ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[cyan]%} ✭"
 else
-  $HOST_PROMPT_="@$HOST[0,10] ➜ "
+  HOST_PROMPT_="@$HOST[0,10] ➜ "
 
   PROMPT='$(return_prompt_info) $(java_prompt_info) %3~ $(git_prompt_info) $(user_prompt_info) '
 
