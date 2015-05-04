@@ -44,7 +44,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
 
   if command -v javac >/dev/null 2>&1; then
     JAVA_PROMPT_PREFIX="%{$fg[yellow]%}jdk%{$reset_color%}:%{$fg[magenta]%}%"
-  else
+  elif command -v java >/dev/null 2>&1; then
     JAVA_PROMPT_PREFIX="%{$fg[yellow]%}jre%{$reset_color%}:%{$fg[magenta]%}%"
   fi
 
