@@ -37,10 +37,27 @@ function time_period_prompt_info() {
   echo "%D{%p}"
 }
 
-if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
-  HOST_PROMPT="%{$fg[yellow]%}%n%{$reset_color%}@%{$fg[red]%}%m ➜ %{$reset_color%}"
+function one_line_prompt() {
+  echo '$(return_prompt_color)$(return_prompt_info)%{$reset_color%} $(java_prompt_info)%{$reset_color%} %{$fg[cyan]%}%8~ $(git_prompt_info) $(user_prompt_color)$(user_prompt_info)%{$reset_color%} '
+}
 
-  PROMPT='$(return_prompt_color)$(return_prompt_info)%{$reset_color%} $(java_prompt_info)%{$reset_color%} %{$fg[cyan]%}%3~ $(git_prompt_info) $(user_prompt_color)$(user_prompt_info)%{$reset_color%} '
+function two_line_prompt() {
+  HOST_PROMPT="%{$fg[yellow]%}%n%{$reset_color%}@%{$fg[magenta]%}%m%{$reset_color%} ➜ "
+
+  echo '$HOST_PROMPT%{$reset_color%} %{$fg[cyan]%}%3~ $(git_prompt_info)
+$(return_prompt_color)$(return_prompt_info)%{$reset_color%} $(java_prompt_info)%{$reset_color%} $(user_prompt_color)$(user_prompt_info)%{$reset_color%} '
+}
+
+function change_prompt() {
+  if [[ $1 == 2 ]]; then
+    PROMPT=$(two_line_prompt)
+  else
+    PROMPT=$(one_line_prompt)
+  fi
+}
+
+if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
+  PROMPT=$(one_line_prompt)
 
   if command -v javac >/dev/null 2>&1; then
     JAVA_PROMPT_PREFIX="%{$fg[yellow]%}jdk%{$reset_color%}:%{$fg[magenta]%}%"
