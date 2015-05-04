@@ -42,9 +42,7 @@ function one_line_prompt() {
 }
 
 function two_line_prompt() {
-  HOST_PROMPT="%{$fg[yellow]%}%n%{$reset_color%}@%{$fg[magenta]%}%m%{$reset_color%} ➜ "
-
-  echo '$HOST_PROMPT%{$reset_color%} %{$fg[cyan]%}%9~ $(git_prompt_info)
+  echo '%{$fg[yellow]%}%n%{$reset_color%}@%{$fg[magenta]%}%m%{$reset_color%} ➜ %{$reset_color%} %{$fg[cyan]%}%6~ $(git_prompt_info)
 $(return_prompt_color)$(return_prompt_info)%{$reset_color%} $(java_prompt_info)%{$reset_color%} $(user_prompt_color)$(user_prompt_info)%{$reset_color%} '
 }
 
@@ -81,7 +79,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
 else
   HOST_PROMPT="%n@%m ➜ "
 
-  PROMPT='$(return_prompt_info) $(java_prompt_info) %9~ $(git_prompt_info) $(user_prompt_info) '
+  PROMPT='$(return_prompt_info) $(java_prompt_info) %6~ $(git_prompt_info) $(user_prompt_info) '
 
   JAVA_PROMPT_PREFIX=""
   ZSH_THEME_GIT_PROMPT_PREFIX="git:"
