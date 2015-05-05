@@ -46,7 +46,7 @@ function two_line_prompt() {
 $(return_prompt_color)$(return_prompt_info)%{$reset_color%} $(java_prompt_info)%{$reset_color%} $(user_prompt_color)$(user_prompt_info)%{$reset_color%} '
 }
 
-function change_prompt() {
+function prompt_change() {
   if [[ $1 == 2 ]]; then
     PROMPT=$(two_line_prompt)
   else
