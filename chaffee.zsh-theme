@@ -9,8 +9,20 @@
 # ⬅ ⬆ ⬇ ⬈ ⬉ ⬊ ⬋ ⬒ ⬓ ⬔ ⬕ ⬖ ⬗ ⬘ ⬙ ⬟  ⬤ 〒 ǀ ǁ ǂ ĭ Ť Ŧ
 #  ±  ➦ ✘ ⚡ ⚙
 
+function java_prompt_prefix() {
+  if command -v javac >/dev/null 2>&1; then
+    echo "jdk"
+  elif command -v java >/dev/null 2>&1; then
+    echo "jre"
+  fi
+}
+
+function java_prompt_prefix_color() {
+  echo "%{$fg[yellow]%}$(java_prompt_prefix)%{$reset_color%}:%{$fg[magenta]%}%"
+}
+
 function java_prompt_info() {
-  echo "$JAVA_PROMPT_PREFIX $(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \" | tr -d 'java version')"
+  echo "$(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \" | tr -d 'java version')"
 }
 
 function return_prompt_color() {
@@ -38,7 +50,7 @@ function time_period_prompt_info() {
 }
 
 function one_line_prompt() {
-  echo '$(return_prompt_color)$(return_prompt_info)%{$reset_color%} $(java_prompt_info)%{$reset_color%} %{$fg[cyan]%}%10~ $(git_prompt_info) $(user_prompt_color)$(user_prompt_info)%{$reset_color%} '
+  echo '$(return_prompt_color)$(return_prompt_info)%{$reset_color%} $(java_prompt_prefix_color)$(java_prompt_info)%{$reset_color%} %{$fg[cyan]%}%10~ $(git_prompt_info) $(user_prompt_color)$(user_prompt_info)%{$reset_color%} '
 }
 
 function two_line_prompt() {
@@ -57,12 +69,6 @@ function prompt_set() {
 if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   PROMPT=$(one_line_prompt)
 
-  if command -v javac >/dev/null 2>&1; then
-    JAVA_PROMPT_PREFIX="%{$fg[yellow]%}jdk%{$reset_color%}:%{$fg[magenta]%}%"
-  elif command -v java >/dev/null 2>&1; then
-    JAVA_PROMPT_PREFIX="%{$fg[yellow]%}jre%{$reset_color%}:%{$fg[magenta]%}%"
-  fi
-
   ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}git%{$reset_color%}:%{$fg[magenta]%}"
   ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
   ZSH_THEME_GIT_PROMPT_DIRTY=""
@@ -79,7 +85,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
 else
   HOST_PROMPT="%n@%m ➜ "
 
-  PROMPT='$(return_prompt_info) $(java_prompt_info) %10~ $(git_prompt_info) $(user_prompt_info) '
+  PROMPT='$(return_prompt_info) $(java_prompt_prefix):$(java_prompt_info) %10~ $(git_prompt_info) $(user_prompt_info) '
 
   JAVA_PROMPT_PREFIX=""
   ZSH_THEME_GIT_PROMPT_PREFIX="git:"
