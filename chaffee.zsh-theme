@@ -69,16 +69,21 @@ function prompt_set() {
 if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   PROMPT=$(one_line_prompt)
 
+  SVN_SHOW_BRANCH="true"
   ZSH_PROMPT_BASE_COLOR="%{$fg[yellow]%}"
   ZSH_THEME_SVN_PROMPT_PREFIX="svn%{$reset_color%}:"
   ZSH_THEME_REPO_NAME_COLOR="%{$fg[magenta]%}"
+  ZSH_THEME_SVN_PROMPT_DIRTY="%{$fg[blue]%} ✹"
+  ZSH_THEME_SVN_PROMPT_CLEAN=""
+  ZSH_THEME_SVN_PROMPT_DIRTY_PWD="%{$fg[blue]%} ✭"
+  ZSH_THEME_SVN_PROMPT_CLEAN_PWD=""
 
   ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}git%{$reset_color%}:%{$fg[magenta]%}"
   ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
   ZSH_THEME_GIT_PROMPT_DIRTY=""
   ZSH_THEME_GIT_PROMPT_CLEAN=""
 
-  RPROMPT='$(git_prompt_status)%{$reset_color%} %F{green}$(time_prompt_info) %F{yellow}$(time_period_prompt_info)%f'
+  RPROMPT='$(git_prompt_status)$(svn_dirty)$(svn_dirty_pwd)%{$reset_color%} %F{green}$(time_prompt_info) %F{yellow}$(time_period_prompt_info)%f'
 
   ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%} ✚"
   ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[blue]%} ✹"
@@ -91,15 +96,22 @@ else
 
   PROMPT='$(return_prompt_info) $(java_prompt_prefix):$(java_prompt_info) %10~ $(git_prompt_info)$(svn_prompt_info) $(user_prompt_info) '
 
+  SVN_SHOW_BRANCH="true"
   ZSH_PROMPT_BASE_COLOR=""
   ZSH_THEME_SVN_PROMPT_PREFIX="svn:"
   ZSH_THEME_REPO_NAME_COLOR=""
+  ZSH_THEME_SVN_PROMPT_DIRTY=" ✹"
+  ZSH_THEME_SVN_PROMPT_CLEAN=""
+  ZSH_THEME_SVN_PROMPT_DIRTY_PWD=" ✭"
+  ZSH_THEME_SVN_PROMPT_CLEAN_PWD=""
+
   ZSH_THEME_GIT_PROMPT_PREFIX="git:"
   ZSH_THEME_GIT_PROMPT_SUFFIX=""
   ZSH_THEME_GIT_PROMPT_DIRTY=""
   ZSH_THEME_GIT_PROMPT_CLEAN=""
 
-  RPROMPT='$(git_prompt_status) $(time_prompt_info) $(time_period_prompt_info)'
+
+  RPROMPT='$(git_prompt_status)$(svn_dirty)$(svn_dirty_pwd) $(time_prompt_info) $(time_period_prompt_info)'
 
   ZSH_THEME_GIT_PROMPT_ADDED=" ✚"
   ZSH_THEME_GIT_PROMPT_MODIFIED=" ✹"
