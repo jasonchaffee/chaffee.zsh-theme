@@ -17,45 +17,45 @@ function java_prompt_prefix() {
   fi
 }
 
-function java_prompt_prefix_color() {
-  echo "%{$fg[yellow]%}$(java_prompt_prefix)%{$reset_color%}:%{$fg[magenta]%}%"
-}
-
 function java_prompt_info() {
-  echo "$(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \" | tr -d 'java version')"
-}
-
-function return_prompt_color() {
-  echo "%(?.%{$reset_color%}.%{$fg_bold[red]%})"
+  echo "$ZSH_THEME_JAVA_PROMPT_PREFIX$(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \" | tr -d 'java version')$ZSH_THEME_JAVA_PROMPT_SUFFIX"
 }
 
 function return_prompt_info() {
-  echo "%(?.⏎.✘)"
+  echo "%(?.$ZSH_THEME_RETURN_PROMPT_SUCCESS_PREFIX$ZSH_THEME_RETURN_PROMPT_SUCCESS$ZSH_THEME_RETURN_PROMPT_SUCCESS_SUFFIX.$ZSH_THEME_RETURN_PROMPT_ERROR_PREFIX$ZSH_THEME_RETURN_PROMPT_ERROR$ZSH_THEME_RETURN_PROMPT_ERROR_SUFFIX)"
 }
 
-function user_prompt_color() {
-  echo "%(!.%{$fg_bold[red]%}.%{$fg_bold[green]%})"
-}
-
-function user_prompt_info() {
-  echo "%(!.⚡ λ.λ)"
+function user_privilege_prompt_info() {
+  echo "%(!.$ZSH_THEME_USER_PROMPT_SUPER_PREFIX$ZSH_THEME_USER_PROMPT_SUPER$ZSH_THEME_USER_PROMPT_SUPER_SUFFIX.$ZSH_THEME_USER_PROMPT_NONSUPER_PREFIX$ZSH_THEME_USER_PROMPT_NONSUPER$ZSH_THEME_USER_PROMPT_NONSUPER_SUFFIX)"
 }
 
 function time_prompt_info() {
-  echo "%D{%L:%M:%S}"
+  echo "$ZSH_THEME_TIME_PROMPT_PREFIX%D{%L:%M:%S}$ZSH_THEME_TIME_PROMPT_SUFFIX"
 }
 
 function time_period_prompt_info() {
-  echo "%D{%p}"
+  echo "$ZSH_THEME_TIME_PERIOD_PROMPT_PREFIX%D{%p}$ZSH_THEME_TIME_PERIOD_PROMPT_SUFFIX"
+}
+
+function pwd_prompt_info() {
+  echo "$ZSH_THEME_PWD_PROMPT_PREFIX$ZSH_THEME_PWD_PROMPT$ZSH_THEME_PWD_PROMPT_SUFFIX"
+}
+
+fuction user_prompt_info() {
+  echo "$ZSH_THEME_USER_PROMPT_PREFIX$ZSH_THEME_USER_PROMPT$ZSH_THEME_USER_PROMPT_SUFFIX"
+}
+
+function host_prompt_info() {
+  echo "$ZSH_THEME_HOST_PROMPT_PREFIX$ZSH_THEME_HOST_PROMPT$ZSH_THEME_HOST_PROMPT_SUFFIX"
 }
 
 function one_line_prompt() {
-  echo '$(return_prompt_color)$(return_prompt_info)%{$reset_color%} $(java_prompt_prefix_color) $(java_prompt_info)%{$reset_color%} %{$fg[cyan]%}%10~ $(git_prompt_info)$(svn_prompt_info) $(user_prompt_color)$(user_prompt_info)%{$reset_color%} '
+  echo '$(return_prompt_info)$(java_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)$(user_privilege_prompt_info)'
 }
 
 function two_line_prompt() {
-  echo '%{$fg[yellow]%}%n%{$reset_color%}@%{$fg[magenta]%}%m%{$reset_color%} ➜ %{$reset_color%} %{$fg[cyan]%}%10~ $(git_prompt_info)$(svn_prompt_info)
-$(return_prompt_color)$(return_prompt_info)%{$reset_color%} $(java_prompt_prefix_color) $(java_prompt_info)%{$reset_color%} $(user_prompt_color)$(user_prompt_info)%{$reset_color%} '
+  echo '$(user_prompt_info)$(host_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)
+$(return_prompt_info)$(java_prompt_info)$(user_privilege_prompt_info)'
 }
 
 function prompt_set() {
@@ -66,24 +66,62 @@ function prompt_set() {
   fi
 }
 
+PROMPT=$(one_line_prompt)
+
+RPROMPT='$(git_prompt_status)$(svn_dirty)$(svn_dirty_pwd)%{$reset_color%} %F{green}$(time_prompt_info) %F{yellow}$(time_period_prompt_info)%f'
+
+
 if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
-  PROMPT=$(one_line_prompt)
+  ZSH_THEME_USER_PROMPT_PREFIX="%{$fg[yellow]%}"
+  ZSH_THEME_USER_PROMPT="%n"
+  ZSH_THEME_USER_PROMPT_SUFFIX="%{$reset_color%}@"
+
+  ZSH_THEME_HOST_PROMPT_PREFIX="%{$fg[magenta]%}"
+  ZSH_THEME_HOST_PROMPT="%m"
+  ZSH_THEME_HOST_PROMPT_SUFFIX="%{$reset_color%} ➜ %{$reset_color%}"
+
+  ZSH_THEME_PWD_PROMPT_PREFIX=" %{$fg[cyan]%}"
+  ZSH_THEME_PWD_PROMPT="%10~"
+  ZSH_THEME_PWD_PROMPT_SUFFIX="%{$reset_color%}"
+
+  ZSH_THEME_RETURN_PROMPT_SUCCESS_PREFIX="%{$reset_color%}"
+  ZSH_THEME_RETURN_PROMPT_SUCCESS="⏎"
+  ZSH_THEME_RETURN_PROMPT_SUCCESS_SUFFIX="%{$reset_color%}"
+
+  ZSH_THEME_RETURN_PROMPT_ERROR_PREFIX="%{$fg_bold[red]%}"
+  ZSH_THEME_RETURN_PROMPT_ERROR="✘"
+  ZSH_THEME_RETURN_PROMPT_ERROR_SUFFIX="%{$reset_color%}"
+
+  ZSH_THEME_JAVA_PROMPT_PREFIX=" %{$fg[yellow]%}$(java_prompt_prefix)%{$reset_color%}:%{$fg[magenta]%}% "
+  ZSH_THEME_JAVA_PROMPT_SUFFIX="%{$reset_color%}"
+
+  ZSH_THEME_USER_PROMPT_SUPER_PREFIX=" %{$fg_bold[red]%}"
+  ZSH_THEME_USER_PROMPT_SUPER="⚡ λ"
+  ZSH_THEME_USER_PROMPT_SUPER_SUFFIX=" %{$reset_color%}"
+
+  ZSH_THEME_USER_PROMPT_NONSUPER_PREFIX=" %{$fg_bold[green]%}"
+  ZSH_THEME_USER_PROMPT_NONSUPER="λ"
+  ZSH_THEME_USER_PROMPT_NONSUPER_SUFFIX=" %{$reset_color%}"
+
+  ZSH_THEME_TIME_PROMPT_PREFIX="%{$fg[green]%}"
+  ZSH_THEME_TIME_PROMPT_SUFFIX="%{$reset_color%}"
+
+  ZSH_THEME_TIME_PERIOD_PROMPT_PREFIX="%{$fg[yellow]%}"
+  ZSH_THEME_TIME_PERIOD_PROMPT_SUFFIX="%{$reset_color%}"
 
   SVN_SHOW_BRANCH="true"
   ZSH_PROMPT_BASE_COLOR="%{$fg[yellow]%}"
-  ZSH_THEME_SVN_PROMPT_PREFIX="svn%{$reset_color%}:"
+  ZSH_THEME_SVN_PROMPT_PREFIX=" svn%{$reset_color%}:"
   ZSH_THEME_REPO_NAME_COLOR="%{$fg[magenta]%}"
   ZSH_THEME_SVN_PROMPT_DIRTY="%{$fg[blue]%} ✹"
   ZSH_THEME_SVN_PROMPT_CLEAN=""
   ZSH_THEME_SVN_PROMPT_DIRTY_PWD="%{$fg[blue]%} ✭"
   ZSH_THEME_SVN_PROMPT_CLEAN_PWD=""
 
-  ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}git%{$reset_color%}:%{$fg[magenta]%}"
+  ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[yellow]%}git%{$reset_color%}:%{$fg[magenta]%}"
   ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
   ZSH_THEME_GIT_PROMPT_DIRTY=""
   ZSH_THEME_GIT_PROMPT_CLEAN=""
-
-  RPROMPT='$(git_prompt_status)$(svn_dirty)$(svn_dirty_pwd)%{$reset_color%} %F{green}$(time_prompt_info) %F{yellow}$(time_period_prompt_info)%f'
 
   ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%} ✚"
   ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[blue]%} ✹"
@@ -92,26 +130,56 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[yellow]%} ═"
   ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[cyan]%} ✭"
 else
-  HOST_PROMPT="%n@%m ➜ "
+  ZSH_THEME_USER_PROMPT_PREFIX=""
+  ZSH_THEME_USER_PROMPT="%n"
+  ZSH_THEME_USER_PROMPT_SUFFIX="@"
 
-  PROMPT='$(return_prompt_info) $(java_prompt_prefix):$(java_prompt_info) %10~ $(git_prompt_info)$(svn_prompt_info) $(user_prompt_info) '
+  ZSH_THEME_HOST_PROMPT_PREFIX=""
+  ZSH_THEME_HOST_PROMPT="%m"
+  ZSH_THEME_HOST_PROMPT_SUFFIX=" ➜ "
+
+  ZSH_THEME_PWD_PROMPT_PREFIX=" "
+  ZSH_THEME_PWD_PROMPT="%10~"
+  ZSH_THEME_PWD_PROMPT_SUFFIX=""
+
+  ZSH_THEME_RETURN_PROMPT_SUCCESS_PREFIX=""
+  ZSH_THEME_RETURN_PROMPT_SUCCESS="⏎"
+  ZSH_THEME_RETURN_PROMPT_SUCCESS_SUFFIX=""
+
+  ZSH_THEME_RETURN_PROMPT_ERROR_PREFIX=""
+  ZSH_THEME_RETURN_PROMPT_ERROR="✘"
+  ZSH_THEME_RETURN_PROMPT_ERROR_SUFFIX=""
+
+  ZSH_THEME_JAVA_PROMPT_PREFIX=" $(java_prompt_prefix):"
+  ZSH_THEME_JAVA_PROMPT_SUFFIX=""
+
+  ZSH_THEME_USER_PROMPT_SUPER_PREFIX=" "
+  ZSH_THEME_USER_PROMPT_SUPER="⚡ λ"
+  ZSH_THEME_USER_PROMPT_SUPER_SUFFIX=" "
+
+  ZSH_THEME_USER_PROMPT_NONSUPER_PREFIX=" "
+  ZSH_THEME_USER_PROMPT_NONSUPER="λ"
+  ZSH_THEME_USER_PROMPT_NONSUPER_SUFFIX=" "
+
+  ZSH_THEME_TIME_PROMPT_PREFIX=""
+  ZSH_THEME_TIME_PROMPT_SUFFIX=""
+
+  ZSH_THEME_TIME_PERIOD_PROMPT_PREFIX=""
+  ZSH_THEME_TIME_PERIOD_PROMPT_SUFFIX=""
 
   SVN_SHOW_BRANCH="true"
   ZSH_PROMPT_BASE_COLOR=""
-  ZSH_THEME_SVN_PROMPT_PREFIX="svn:"
+  ZSH_THEME_SVN_PROMPT_PREFIX=" svn:"
   ZSH_THEME_REPO_NAME_COLOR=""
   ZSH_THEME_SVN_PROMPT_DIRTY=" ✹"
   ZSH_THEME_SVN_PROMPT_CLEAN=""
   ZSH_THEME_SVN_PROMPT_DIRTY_PWD=" ✭"
   ZSH_THEME_SVN_PROMPT_CLEAN_PWD=""
 
-  ZSH_THEME_GIT_PROMPT_PREFIX="git:"
+  ZSH_THEME_GIT_PROMPT_PREFIX=" git:"
   ZSH_THEME_GIT_PROMPT_SUFFIX=""
   ZSH_THEME_GIT_PROMPT_DIRTY=""
   ZSH_THEME_GIT_PROMPT_CLEAN=""
-
-
-  RPROMPT='$(git_prompt_status)$(svn_dirty)$(svn_dirty_pwd) $(time_prompt_info) $(time_period_prompt_info)'
 
   ZSH_THEME_GIT_PROMPT_ADDED=" ✚"
   ZSH_THEME_GIT_PROMPT_MODIFIED=" ✹"
