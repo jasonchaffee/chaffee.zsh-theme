@@ -68,7 +68,7 @@ function prompt_set() {
 
 PROMPT=$(one_line_prompt)
 
-RPROMPT='$(git_prompt_status)$(svn_dirty)$(svn_dirty_pwd)%{$reset_color%} %F{green}$(time_prompt_info) %F{yellow}$(time_period_prompt_info)%f'
+RPROMPT='$(git_prompt_status)$(svn_dirty)$(svn_dirty_pwd)$(time_prompt_info)$(time_period_prompt_info)'
 
 
 if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
@@ -106,7 +106,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   ZSH_THEME_TIME_PROMPT_PREFIX="%{$fg[green]%}"
   ZSH_THEME_TIME_PROMPT_SUFFIX="%{$reset_color%}"
 
-  ZSH_THEME_TIME_PERIOD_PROMPT_PREFIX="%{$fg[yellow]%}"
+  ZSH_THEME_TIME_PERIOD_PROMPT_PREFIX=" %{$fg[yellow]%}"
   ZSH_THEME_TIME_PERIOD_PROMPT_SUFFIX="%{$reset_color%}"
 
   SVN_SHOW_BRANCH="true"
@@ -164,7 +164,7 @@ else
   ZSH_THEME_TIME_PROMPT_PREFIX=""
   ZSH_THEME_TIME_PROMPT_SUFFIX=""
 
-  ZSH_THEME_TIME_PERIOD_PROMPT_PREFIX=""
+  ZSH_THEME_TIME_PERIOD_PROMPT_PREFIX=" "
   ZSH_THEME_TIME_PERIOD_PROMPT_SUFFIX=""
 
   SVN_SHOW_BRANCH="true"
