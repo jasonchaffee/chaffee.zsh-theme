@@ -92,7 +92,12 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   ZSH_THEME_RETURN_PROMPT_ERROR="✘"
   ZSH_THEME_RETURN_PROMPT_ERROR_SUFFIX="%{$reset_color%}"
 
-  ZSH_THEME_JAVA_PROMPT_PREFIX=" %{$fg[yellow]%}$(java_prompt_prefix)%{$reset_color%}:%{$fg[magenta]%}% "
+  if command -v java >/dev/null 2>&1; then
+    ZSH_THEME_JAVA_PROMPT_PREFIX=" %{$fg[yellow]%}$(java_prompt_prefix)%{$reset_color%}:%{$fg[magenta]%}% "
+  else
+    ZSH_THEME_JAVA_PROMPT_PREFIX=""
+  fi
+
   ZSH_THEME_JAVA_PROMPT_SUFFIX="%{$reset_color%}"
 
   ZSH_THEME_USER_PROMPT_SUPER_PREFIX=" %{$fg_bold[red]%}"
@@ -150,7 +155,12 @@ else
   ZSH_THEME_RETURN_PROMPT_ERROR="✘"
   ZSH_THEME_RETURN_PROMPT_ERROR_SUFFIX=""
 
-  ZSH_THEME_JAVA_PROMPT_PREFIX=" $(java_prompt_prefix):"
+  if command -v java >/dev/null 2>&1; then
+    ZSH_THEME_JAVA_PROMPT_PREFIX=" $(java_prompt_prefix):"
+  else
+    ZSH_THEME_JAVA_PROMPT_PREFIX=""
+  fi
+
   ZSH_THEME_JAVA_PROMPT_SUFFIX=""
 
   ZSH_THEME_USER_PROMPT_SUPER_PREFIX=" "
