@@ -18,7 +18,7 @@ function java_prompt_prefix() {
 }
 
 function java_prompt_info() {
-  echo "$ZSH_THEME_JAVA_PROMPT_PREFIX$(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \" | tr -d 'java version')$ZSH_THEME_JAVA_PROMPT_SUFFIX"
+  echo "$ZSH_THEME_JAVA_PROMPT_PREFIX$(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \")$ZSH_THEME_JAVA_PROMPT_SUFFIX"
 }
 
 function return_prompt_info() {
