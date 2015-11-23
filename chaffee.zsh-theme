@@ -18,11 +18,11 @@ function java_prompt_prefix() {
 }
 
 function java_prompt_info() {
-  echo "[$ZSH_THEME_JAVA_PROMPT_PREFIX$(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \")$ZSH_THEME_JAVA_PROMPT_SUFFIX]"
+  echo "$ZSH_THEME_JAVA_PROMPT_PREFIX$(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \")$ZSH_THEME_JAVA_PROMPT_SUFFIX"
 }
 
 function ruby_prompt_info() {
-  echo "[$ZSH_THEME_RUBY_PROMPT_PREFIX$(rbenv local)$ZSH_THEME_RUBY_PROMPT_SUFFIX]"
+  echo "$ZSH_THEME_RUBY_PROMPT_PREFIX$(rbenv local)$ZSH_THEME_RUBY_PROMPT_SUFFIX"
 }
 
 function return_prompt_info() {
@@ -97,20 +97,20 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   ZSH_THEME_RETURN_PROMPT_ERROR_SUFFIX="%{$reset_color%}"
 
   if command -v java >/dev/null 2>&1; then
-    ZSH_THEME_JAVA_PROMPT_PREFIX=" %{$fg[yellow]%}$(java_prompt_prefix)%{$reset_color%}:%{$fg[magenta]%}% "
+    ZSH_THEME_JAVA_PROMPT_PREFIX=" [%{$fg[yellow]%}$(java_prompt_prefix)%{$reset_color%}:%{$fg[magenta]%}% "
+    ZSH_THEME_JAVA_PROMPT_SUFFIX="%{$reset_color%}]"
   else
     ZSH_THEME_JAVA_PROMPT_PREFIX=" "
+    ZSH_THEME_JAVA_PROMPT_SUFFIX="%{$reset_color%}]"
   fi
 
-  ZSH_THEME_JAVA_PROMPT_SUFFIX="%{$reset_color%}"
-
-    if command -v rbenv >/dev/null 2>&1; then
-      ZSH_THEME_RUBY_PROMPT_PREFIX=" %{$fg[yellow]%}ruby%{$reset_color%}:%{$fg[magenta]%}% "
-    else
-      ZSH_THEME_RUBY_PROMPT_PREFIX=" "
-    fi
-
+  if command -v rbenv >/dev/null 2>&1; then
+    ZSH_THEME_RUBY_PROMPT_PREFIX=" [%{$fg[yellow]%}ruby%{$reset_color%}:%{$fg[magenta]%}% "
+    ZSH_THEME_RUBY_PROMPT_SUFFIX="%{$reset_color%}]"
+  else
+    ZSH_THEME_RUBY_PROMPT_PREFIX=" "
     ZSH_THEME_RUBY_PROMPT_SUFFIX="%{$reset_color%}"
+  fi
 
   ZSH_THEME_USER_PROMPT_SUPER_PREFIX=" %{$fg_bold[red]%}"
   ZSH_THEME_USER_PROMPT_SUPER="⚡ λ"
@@ -168,20 +168,20 @@ else
   ZSH_THEME_RETURN_PROMPT_ERROR_SUFFIX=""
 
   if command -v java >/dev/null 2>&1; then
-    ZSH_THEME_JAVA_PROMPT_PREFIX=" $(java_prompt_prefix):"
+    ZSH_THEME_JAVA_PROMPT_PREFIX=" [$(java_prompt_prefix):"
+    ZSH_THEME_JAVA_PROMPT_SUFFIX="]"
   else
     ZSH_THEME_JAVA_PROMPT_PREFIX=" "
+    ZSH_THEME_JAVA_PROMPT_SUFFIX=""
   fi
-
-  ZSH_THEME_JAVA_PROMPT_SUFFIX=""
 
   if command -v rbenv >/dev/null 2>&1; then
-    ZSH_THEME_RUBY_PROMPT_PREFIX=" ruby:"
+    ZSH_THEME_RUBY_PROMPT_PREFIX=" [ruby:"
+    ZSH_THEME_RUBY_PROMPT_SUFFIX="]"
   else
     ZSH_THEME_RUBY_PROMPT_PREFIX=" "
+    ZSH_THEME_RUBY_PROMPT_SUFFIX=""
   fi
-
-  ZSH_THEME_RUBY_PROMPT_SUFFIX=""
 
   ZSH_THEME_USER_PROMPT_SUPER_PREFIX=" "
   ZSH_THEME_USER_PROMPT_SUPER="⚡ λ"
