@@ -18,7 +18,11 @@ function java_prompt_prefix() {
 }
 
 function java_prompt_info() {
-  echo "$ZSH_THEME_JAVA_PROMPT_PREFIX$(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \")$ZSH_THEME_JAVA_PROMPT_SUFFIX"
+  echo "[$ZSH_THEME_JAVA_PROMPT_PREFIX$(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \")$ZSH_THEME_JAVA_PROMPT_SUFFIX]"
+}
+
+function ruby_prompt_info() {
+  echo "[$ZSH_THEME_RUBY_PROMPT_PREFIX$(rbenv local)$ZSH_THEME_RUBY_PROMPT_SUFFIX]"
 }
 
 function return_prompt_info() {
@@ -50,12 +54,12 @@ function host_prompt_info() {
 }
 
 function one_line_prompt() {
-  echo '$(return_prompt_info)$(java_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)$(user_privilege_prompt_info)'
+  echo '$(return_prompt_info)$(java_prompt_info)$(ruby_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)$(user_privilege_prompt_info)'
 }
 
 function two_line_prompt() {
   echo '$(user_prompt_info)$(host_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)
-$(return_prompt_info)$(java_prompt_info)$(user_privilege_prompt_info)'
+$(return_prompt_info)$(java_prompt_info)$(ruby_prompt_info)$(user_privilege_prompt_info)'
 }
 
 function prompt_set() {
@@ -99,6 +103,14 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   fi
 
   ZSH_THEME_JAVA_PROMPT_SUFFIX="%{$reset_color%}"
+
+    if command -v rbenv >/dev/null 2>&1; then
+      ZSH_THEME_RUBY_PROMPT_PREFIX=" %{$fg[yellow]%}ruby%{$reset_color%}:%{$fg[magenta]%}% "
+    else
+      ZSH_THEME_RUBY_PROMPT_PREFIX=" "
+    fi
+
+    ZSH_THEME_RUBY_PROMPT_SUFFIX="%{$reset_color%}"
 
   ZSH_THEME_USER_PROMPT_SUPER_PREFIX=" %{$fg_bold[red]%}"
   ZSH_THEME_USER_PROMPT_SUPER="⚡ λ"
@@ -162,6 +174,14 @@ else
   fi
 
   ZSH_THEME_JAVA_PROMPT_SUFFIX=""
+
+  if command -v rbenv >/dev/null 2>&1; then
+    ZSH_THEME_RUBY_PROMPT_PREFIX=" ruby:"
+  else
+    ZSH_THEME_RUBY_PROMPT_PREFIX=" "
+  fi
+
+  ZSH_THEME_RUBY_PROMPT_SUFFIX=""
 
   ZSH_THEME_USER_PROMPT_SUPER_PREFIX=" "
   ZSH_THEME_USER_PROMPT_SUPER="⚡ λ"
