@@ -24,8 +24,10 @@ function java_prompt_info() {
 }
 
 function ruby_prompt_info() {
-  if command -v 'rbenv local' >/dev/null 2>&1; then
-    echo "$ZSH_THEME_RUBY_PROMPT_PREFIX$(rbenv local)$ZSH_THEME_RUBY_PROMPT_SUFFIX"
+  if command -v rbenv >/dev/null 2>&1; then
+    if rbenv local >/dev/null 2>&1; then
+      echo "$ZSH_THEME_RUBY_PROMPT_PREFIX$(rbenv local)$ZSH_THEME_RUBY_PROMPT_SUFFIX"
+    fi
   fi
 }
 
