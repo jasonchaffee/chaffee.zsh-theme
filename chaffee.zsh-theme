@@ -18,11 +18,15 @@ function java_prompt_prefix() {
 }
 
 function java_prompt_info() {
-  echo "$ZSH_THEME_JAVA_PROMPT_PREFIX$(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \")$ZSH_THEME_JAVA_PROMPT_SUFFIX"
+  if command -v java >/dev/null 2>&1; then
+    echo "$ZSH_THEME_JAVA_PROMPT_PREFIX$(java -version 2>&1 | grep 'java version' | awk '{print $3}' | tr -d \")$ZSH_THEME_JAVA_PROMPT_SUFFIX"
+  fi
 }
 
 function ruby_prompt_info() {
-  echo "$ZSH_THEME_RUBY_PROMPT_PREFIX$(rbenv local)$ZSH_THEME_RUBY_PROMPT_SUFFIX"
+  if command -v rbenv >/dev/null 2>&1; then
+    echo "$ZSH_THEME_RUBY_PROMPT_PREFIX$(rbenv local)$ZSH_THEME_RUBY_PROMPT_SUFFIX"
+  fi
 }
 
 function return_prompt_info() {
