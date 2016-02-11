@@ -31,6 +31,14 @@ function node_prompt_info() {
   fi
 }
 
+function python_prompt_info() {
+  if command -v pyenv >/dev/null 2>&1; then
+    if pyenv local >/dev/null 2>&1; then
+      echo "$ZSH_THEME_PYTHON_PROMPT_PREFIX$(pyenv local)$ZSH_THEME_PYTHON_PROMPT_SUFFIX"
+    fi
+  fi
+}
+
 function ruby_prompt_info() {
   if command -v rbenv >/dev/null 2>&1; then
     if rbenv local >/dev/null 2>&1; then
@@ -68,12 +76,12 @@ function host_prompt_info() {
 }
 
 function one_line_prompt() {
-  echo '$(return_prompt_info)$(java_prompt_info)$(node_prompt_info)$(ruby_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)$(user_privilege_prompt_info)'
+  echo '$(return_prompt_info)$(java_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)$(user_privilege_prompt_info)'
 }
 
 function two_line_prompt() {
   echo '$(user_prompt_info)$(host_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)
-$(return_prompt_info)$(java_prompt_info)$(node_prompt_info)$(ruby_prompt_info)$(user_privilege_prompt_info)'
+$(return_prompt_info)$(java_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(user_privilege_prompt_info)'
 }
 
 function prompt_set() {
@@ -91,6 +99,7 @@ RPROMPT='$(git_prompt_status)$(svn_dirty)$(svn_dirty_pwd)$(time_prompt_info)$(ti
 GIT_PROMPT_PREFIX=git
 SVN_PROMPT_PREFIX=svn
 NODE_PROMPT_PREFIX=node
+PYTHON_PROMPT_PREFIX=python
 RUBY_PROMPT_PREFIX=ruby
 
 if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
@@ -128,6 +137,14 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   else
     ZSH_THEME_RUBY_PROMPT_PREFIX=" "
     ZSH_THEME_RUBY_PROMPT_SUFFIX="%{$reset_color%}"
+  fi
+
+  if command -v pyenv >/dev/null 2>&1; then
+    ZSH_THEME_PYTHON_PROMPT_PREFIX=" [%{$fg[yellow]%}$PYTHON_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
+    ZSH_THEME_PYTHON_PROMPT_SUFFIX="%{$reset_color%}]"
+  else
+    ZSH_THEME_PYTHON_PROMPT_PREFIX=" "
+    ZSH_THEME_PYTHON_PROMPT_SUFFIX="%{$reset_color%}"
   fi
 
   if command -v rbenv >/dev/null 2>&1; then
@@ -207,6 +224,14 @@ else
   else
     ZSH_THEME_RUBY_PROMPT_PREFIX=" "
     ZSH_THEME_RUBY_PROMPT_SUFFIX=""
+  fi
+
+  if command -v pyenv >/dev/null 2>&1; then
+    ZSH_THEME_PYTHON_PROMPT_PREFIX=" [$PYTHON_PROMPT_PREFIX:"
+    ZSH_THEME_PYTHON_PROMPT_SUFFIX="]"
+  else
+    ZSH_THEME_PYTHON_PROMPT_PREFIX=" "
+    ZSH_THEME_PYTHON_PROMPT_SUFFIX=""
   fi
 
   if command -v rbenv >/dev/null 2>&1; then
