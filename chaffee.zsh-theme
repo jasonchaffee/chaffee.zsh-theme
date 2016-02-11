@@ -99,8 +99,8 @@ RPROMPT='$(git_prompt_status)$(svn_dirty)$(svn_dirty_pwd)$(time_prompt_info)$(ti
 GIT_PROMPT_PREFIX=git
 SVN_PROMPT_PREFIX=svn
 NODE_PROMPT_PREFIX=node
-PYTHON_PROMPT_PREFIX=python
-RUBY_PROMPT_PREFIX=ruby
+PYTHON_PROMPT_PREFIX=py
+RUBY_PROMPT_PREFIX=rb
 
 if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   ZSH_THEME_USER_PROMPT_PREFIX="%{$fg[yellow]%}"
