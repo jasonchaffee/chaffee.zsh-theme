@@ -24,9 +24,9 @@ function java_prompt_info() {
 }
 
 function node_prompt_info() {
-  if command -v nvm >/dev/null 2>&1; then
-    if nvm version >/dev/null 2>&1; then
-      echo "$ZSH_THEME_NODE_PROMPT_PREFIX$(nvm version)$ZSH_THEME_NODE_PROMPT_SUFFIX"
+  if command -v node >/dev/null 2>&1; then
+    if node --version >/dev/null 2>&1; then
+      echo "$ZSH_THEME_NODE_PROMPT_PREFIX$(node --version)$ZSH_THEME_NODE_PROMPT_SUFFIX"
     fi
   fi
 }
@@ -122,7 +122,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_JAVA_PROMPT_SUFFIX="%{$reset_color%}]"
   fi
 
-  if command -v nvm >/dev/null 2>&1; then
+  if command -v node >/dev/null 2>&1; then
     ZSH_THEME_NODE_PROMPT_PREFIX=" [%{$fg[yellow]%}$NODE_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
     ZSH_THEME_NODE_PROMPT_SUFFIX="%{$reset_color%}]"
   else
@@ -201,7 +201,7 @@ else
     ZSH_THEME_JAVA_PROMPT_SUFFIX=""
   fi
 
-  if command -v nvm >/dev/null 2>&1; then
+  if command -v node >/dev/null 2>&1; then
     ZSH_THEME_NODE_PROMPT_PREFIX=" [$NODE_PROMPT_PREFIX:"
     ZSH_THEME_NODE_PROMPT_SUFFIX="]"
   else
