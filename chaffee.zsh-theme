@@ -23,6 +23,14 @@ function java_prompt_info() {
   fi
 }
 
+function node_prompt_info() {
+  if command -v nvm >/dev/null 2>&1; then
+    if nvm version >/dev/null 2>&1; then
+      echo "$ZSH_THEME_NODE_PROMPT_PREFIX$(nvm version)$ZSH_THEME_NODE_PROMPT_SUFFIX"
+    fi
+  fi
+}
+
 function ruby_prompt_info() {
   if command -v rbenv >/dev/null 2>&1; then
     if rbenv local >/dev/null 2>&1; then
@@ -60,12 +68,12 @@ function host_prompt_info() {
 }
 
 function one_line_prompt() {
-  echo '$(return_prompt_info)$(java_prompt_info)$(ruby_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)$(user_privilege_prompt_info)'
+  echo '$(return_prompt_info)$(java_prompt_info)$(node_prompt_info)$(ruby_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)$(user_privilege_prompt_info)'
 }
 
 function two_line_prompt() {
   echo '$(user_prompt_info)$(host_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)
-$(return_prompt_info)$(java_prompt_info)$(ruby_prompt_info)$(user_privilege_prompt_info)'
+$(return_prompt_info)$(java_prompt_info)$(node_prompt_info)$(ruby_prompt_info)$(user_privilege_prompt_info)'
 }
 
 function prompt_set() {
@@ -80,6 +88,10 @@ PROMPT=$(one_line_prompt)
 
 RPROMPT='$(git_prompt_status)$(svn_dirty)$(svn_dirty_pwd)$(time_prompt_info)$(time_period_prompt_info)'
 
+GIT_PROMPT_PREFIX=git
+SVN_PROMPT_PREFIX=svn
+NODE_PROMPT_PREFIX=node
+RUBY_PROMPT_PREFIX=ruby
 
 if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   ZSH_THEME_USER_PROMPT_PREFIX="%{$fg[yellow]%}"
@@ -110,8 +122,16 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_JAVA_PROMPT_SUFFIX="%{$reset_color%}]"
   fi
 
+  if command -v nvm >/dev/null 2>&1; then
+    ZSH_THEME_NODE_PROMPT_PREFIX=" [%{$fg[yellow]%}$NODE_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
+    ZSH_THEME_NODE_PROMPT_SUFFIX="%{$reset_color%}]"
+  else
+    ZSH_THEME_RUBY_PROMPT_PREFIX=" "
+    ZSH_THEME_RUBY_PROMPT_SUFFIX="%{$reset_color%}"
+  fi
+
   if command -v rbenv >/dev/null 2>&1; then
-    ZSH_THEME_RUBY_PROMPT_PREFIX=" [%{$fg[yellow]%}ruby%{$reset_color%}:%{$fg[magenta]%}% "
+    ZSH_THEME_RUBY_PROMPT_PREFIX=" [%{$fg[yellow]%}$RUBY_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
     ZSH_THEME_RUBY_PROMPT_SUFFIX="%{$reset_color%}]"
   else
     ZSH_THEME_RUBY_PROMPT_PREFIX=" "
@@ -134,14 +154,14 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
 
   SVN_SHOW_BRANCH="true"
   ZSH_PROMPT_BASE_COLOR="%{$fg[yellow]%}"
-  ZSH_THEME_SVN_PROMPT_PREFIX=" svn%{$reset_color%}:"
+  ZSH_THEME_SVN_PROMPT_PREFIX=" $SVN_PROMPT_PREFIX%{$reset_color%}:"
   ZSH_THEME_REPO_NAME_COLOR="%{$fg[magenta]%}"
   ZSH_THEME_SVN_PROMPT_DIRTY="%{$fg[blue]%} ✹"
   ZSH_THEME_SVN_PROMPT_CLEAN=""
   ZSH_THEME_SVN_PROMPT_DIRTY_PWD="%{$fg[blue]%} ✭"
   ZSH_THEME_SVN_PROMPT_CLEAN_PWD=""
 
-  ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[yellow]%}git%{$reset_color%}:%{$fg[magenta]%}"
+  ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[yellow]%}$GIT_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}"
   ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
   ZSH_THEME_GIT_PROMPT_DIRTY=""
   ZSH_THEME_GIT_PROMPT_CLEAN=""
@@ -181,8 +201,16 @@ else
     ZSH_THEME_JAVA_PROMPT_SUFFIX=""
   fi
 
+  if command -v nvm >/dev/null 2>&1; then
+    ZSH_THEME_NODE_PROMPT_PREFIX=" [$NODE_PROMPT_PREFIX:"
+    ZSH_THEME_NODE_PROMPT_SUFFIX="]"
+  else
+    ZSH_THEME_RUBY_PROMPT_PREFIX=" "
+    ZSH_THEME_RUBY_PROMPT_SUFFIX=""
+  fi
+
   if command -v rbenv >/dev/null 2>&1; then
-    ZSH_THEME_RUBY_PROMPT_PREFIX=" [ruby:"
+    ZSH_THEME_RUBY_PROMPT_PREFIX=" [$RUBY_PROMPT_PREFIX:"
     ZSH_THEME_RUBY_PROMPT_SUFFIX="]"
   else
     ZSH_THEME_RUBY_PROMPT_PREFIX=" "
@@ -205,14 +233,14 @@ else
 
   SVN_SHOW_BRANCH="true"
   ZSH_PROMPT_BASE_COLOR=""
-  ZSH_THEME_SVN_PROMPT_PREFIX=" svn:"
+  ZSH_THEME_SVN_PROMPT_PREFIX=" $SVN_PROMPT_PREFIX:"
   ZSH_THEME_REPO_NAME_COLOR=""
   ZSH_THEME_SVN_PROMPT_DIRTY=" ✹"
   ZSH_THEME_SVN_PROMPT_CLEAN=""
   ZSH_THEME_SVN_PROMPT_DIRTY_PWD=" ✭"
   ZSH_THEME_SVN_PROMPT_CLEAN_PWD=""
 
-  ZSH_THEME_GIT_PROMPT_PREFIX=" git:"
+  ZSH_THEME_GIT_PROMPT_PREFIX=" $GIT_PROMPT_PREFIX:"
   ZSH_THEME_GIT_PROMPT_SUFFIX=""
   ZSH_THEME_GIT_PROMPT_DIRTY=""
   ZSH_THEME_GIT_PROMPT_CLEAN=""
