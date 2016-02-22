@@ -32,18 +32,20 @@ function node_prompt_info() {
 }
 
 function python_prompt_info() {
-  if command -v pyenv >/dev/null 2>&1; then
-    if pyenv local >/dev/null 2>&1; then
-      echo "$ZSH_THEME_PYTHON_PROMPT_PREFIX$(pyenv local)$ZSH_THEME_PYTHON_PROMPT_SUFFIX"
-    fi
+  if command -v python >/dev/null 2>&1; then
+    echo "$ZSH_THEME_PYTHON_PROMPT_PREFIX$(python --version 2>&1 | grep 'Python' | awk '{print $2}' | tr -d \")$ZSH_THEME_PYTHON_PROMPT_SUFFIX"
   fi
 }
 
 function ruby_prompt_info() {
-  if command -v rbenv >/dev/null 2>&1; then
-    if rbenv local >/dev/null 2>&1; then
-      echo "$ZSH_THEME_RUBY_PROMPT_PREFIX$(rbenv local)$ZSH_THEME_RUBY_PROMPT_SUFFIX"
-    fi
+  if command -v ruby >/dev/null 2>&1; then
+    echo "$ZSH_THEME_RUBY_PROMPT_PREFIX$(ruby --version 2>&1 | grep 'ruby' | awk '{print $2}' | tr -d \")$ZSH_THEME_RUBY_PROMPT_SUFFIX"
+  fi
+}
+
+function scala_prompt_info() {
+  if command -v scala >/dev/null 2>&1; then
+    echo "$ZSH_THEME_SCALA_PROMPT_PREFIX$(scala -version 2>&1 | grep 'Scala code runner version' | awk '{print $2}' | tr -d \")$ZSH_THEME_SCALA_PROMPT_SUFFIX"
   fi
 }
 
@@ -76,12 +78,12 @@ function host_prompt_info() {
 }
 
 function one_line_prompt() {
-  echo '$(return_prompt_info)$(java_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)$(user_privilege_prompt_info)'
+  echo '$(return_prompt_info)$(java_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(scala_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)$(user_privilege_prompt_info)'
 }
 
 function two_line_prompt() {
   echo '$(user_prompt_info)$(host_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)
-$(return_prompt_info)$(java_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(user_privilege_prompt_info)'
+$(return_prompt_info)$(java_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(scala_prompt_info)$(user_privilege_prompt_info)'
 }
 
 function prompt_set() {
@@ -139,7 +141,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_RUBY_PROMPT_SUFFIX="%{$reset_color%}"
   fi
 
-  if command -v pyenv >/dev/null 2>&1; then
+  if command -v python >/dev/null 2>&1; then
     ZSH_THEME_PYTHON_PROMPT_PREFIX=" [%{$fg[yellow]%}$PYTHON_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
     ZSH_THEME_PYTHON_PROMPT_SUFFIX="%{$reset_color%}]"
   else
@@ -147,12 +149,20 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_PYTHON_PROMPT_SUFFIX="%{$reset_color%}"
   fi
 
-  if command -v rbenv >/dev/null 2>&1; then
+  if command -v ruby >/dev/null 2>&1; then
     ZSH_THEME_RUBY_PROMPT_PREFIX=" [%{$fg[yellow]%}$RUBY_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
     ZSH_THEME_RUBY_PROMPT_SUFFIX="%{$reset_color%}]"
   else
     ZSH_THEME_RUBY_PROMPT_PREFIX=" "
     ZSH_THEME_RUBY_PROMPT_SUFFIX="%{$reset_color%}"
+  fi
+
+  if command -v scala >/dev/null 2>&1; then
+    ZSH_THEME_SCALA_PROMPT_PREFIX=" [%{$fg[yellow]%}$SCALA_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
+    ZSH_THEME_SCALA_PROMPT_SUFFIX="%{$reset_color%}]"
+  else
+    ZSH_THEME_SCALA_PROMPT_PREFIX=" "
+    ZSH_THEME_SCALA_PROMPT_SUFFIX="%{$reset_color%}"
   fi
 
   ZSH_THEME_USER_PROMPT_SUPER_PREFIX=" %{$fg_bold[red]%}"
@@ -226,7 +236,7 @@ else
     ZSH_THEME_RUBY_PROMPT_SUFFIX=""
   fi
 
-  if command -v pyenv >/dev/null 2>&1; then
+  if command -v python >/dev/null 2>&1; then
     ZSH_THEME_PYTHON_PROMPT_PREFIX=" [$PYTHON_PROMPT_PREFIX:"
     ZSH_THEME_PYTHON_PROMPT_SUFFIX="]"
   else
@@ -234,12 +244,20 @@ else
     ZSH_THEME_PYTHON_PROMPT_SUFFIX=""
   fi
 
-  if command -v rbenv >/dev/null 2>&1; then
+  if command -v ruby >/dev/null 2>&1; then
     ZSH_THEME_RUBY_PROMPT_PREFIX=" [$RUBY_PROMPT_PREFIX:"
     ZSH_THEME_RUBY_PROMPT_SUFFIX="]"
   else
     ZSH_THEME_RUBY_PROMPT_PREFIX=" "
     ZSH_THEME_RUBY_PROMPT_SUFFIX=""
+  fi
+
+    if command -v scala >/dev/null 2>&1; then
+    ZSH_THEME_SCALA_PROMPT_PREFIX=" [$SCALA_PROMPT_PREFIX:"
+    ZSH_THEME_SCALA_PROMPT_SUFFIX="]"
+  else
+    ZSH_THEME_SCALA_PROMPT_PREFIX=" "
+    ZSH_THEME_SCALA_PROMPT_SUFFIX=""
   fi
 
   ZSH_THEME_USER_PROMPT_SUPER_PREFIX=" "
