@@ -84,12 +84,12 @@ function host_prompt_info() {
 }
 
 function one_line_prompt() {
-  echo '$(return_prompt_info)$(java_prompt_info)$(go_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(scala_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)$(user_privilege_prompt_info)'
+  echo '$(return_prompt_info)$(java_prompt_info)$(scala_prompt_info)$(go_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)$(user_privilege_prompt_info)'
 }
 
 function two_line_prompt() {
   echo '$(user_prompt_info)$(host_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)
-$(return_prompt_info)$(java_prompt_info)$(go_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(scala_prompt_info)$(user_privilege_prompt_info)'
+$(return_prompt_info)$(java_prompt_info)$(scala_prompt_info)$(go_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(user_privilege_prompt_info)'
 }
 
 function prompt_set() {
@@ -277,7 +277,7 @@ else
     ZSH_THEME_RUBY_PROMPT_SUFFIX=""
   fi
 
-    if command -v scala >/dev/null 2>&1; then
+  if command -v scala >/dev/null 2>&1; then
     ZSH_THEME_SCALA_PROMPT_PREFIX=" [$SCALA_PROMPT_PREFIX:"
     ZSH_THEME_SCALA_PROMPT_SUFFIX="]"
   else
