@@ -103,6 +103,7 @@ SVN_PROMPT_PREFIX=svn
 NODE_PROMPT_PREFIX=node
 PYTHON_PROMPT_PREFIX=py
 RUBY_PROMPT_PREFIX=rb
+SCALA_PROMPT_PREFIX=scala
 
 if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   ZSH_THEME_USER_PROMPT_PREFIX="%{$fg[yellow]%}"
