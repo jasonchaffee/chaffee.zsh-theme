@@ -45,7 +45,7 @@ function ruby_prompt_info() {
 
 function scala_prompt_info() {
   if command -v scala >/dev/null 2>&1; then
-    echo "$ZSH_THEME_SCALA_PROMPT_PREFIX$(scala -version 2>&1 | grep 'Scala code runner version' | awk '{print $2}' | tr -d \")$ZSH_THEME_SCALA_PROMPT_SUFFIX"
+    echo "$ZSH_THEME_SCALA_PROMPT_PREFIX$(scala -version 2>&1 | grep 'Scala code runner version' | awk '{print $5}' | tr -d \")$ZSH_THEME_SCALA_PROMPT_SUFFIX"
   fi
 }
 
