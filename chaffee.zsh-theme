@@ -139,7 +139,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_JAVA_PROMPT_SUFFIX="%{$reset_color%}]"
   else
     ZSH_THEME_JAVA_PROMPT_PREFIX='"
-    ZSH_THEME_JAVA_PROMPT_SUFFIX="%{$reset_color%}]"
+    ZSH_THEME_JAVA_PROMPT_SUFFIX=""
   fi
 
   if command -v go >/dev/null 2>&1; then
@@ -147,7 +147,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_GO_PROMPT_SUFFIX="%{$reset_color%}]"
   else
     ZSH_THEME_GO_PROMPT_PREFIX=""
-    ZSH_THEME_GO_PROMPT_SUFFIX="%{$reset_color%}"
+    ZSH_THEME_GO_PROMPT_SUFFIX=""
   fi
 
   if command -v node >/dev/null 2>&1; then
@@ -155,7 +155,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_NODE_PROMPT_SUFFIX="%{$reset_color%}]"
   else
     ZSH_THEME_NODE_PROMPT_PREFIX=""
-    ZSH_THEME_NODE_PROMPT_SUFFIX="%{$reset_color%}"
+    ZSH_THEME_NODE_PROMPT_SUFFIX=""
   fi
 
   if command -v python >/dev/null 2>&1; then
@@ -163,7 +163,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_PYTHON_PROMPT_SUFFIX="%{$reset_color%}]"
   else
     ZSH_THEME_PYTHON_PROMPT_PREFIX=""
-    ZSH_THEME_PYTHON_PROMPT_SUFFIX="%{$reset_color%}"
+    ZSH_THEME_PYTHON_PROMPT_SUFFIX=""
   fi
 
   if command -v ruby >/dev/null 2>&1; then
@@ -171,7 +171,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_RUBY_PROMPT_SUFFIX="%{$reset_color%}]"
   else
     ZSH_THEME_RUBY_PROMPT_PREFIX=""
-    ZSH_THEME_RUBY_PROMPT_SUFFIX="%{$reset_color%}"
+    ZSH_THEME_RUBY_PROMPT_SUFFIX=""
   fi
 
   if command -v scala >/dev/null 2>&1; then
@@ -179,7 +179,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_SCALA_PROMPT_SUFFIX="%{$reset_color%}]"
   else
     ZSH_THEME_SCALA_PROMPT_PREFIX=""
-    ZSH_THEME_SCALA_PROMPT_SUFFIX="%{$reset_color%}"
+    ZSH_THEME_SCALA_PROMPT_SUFFIX=""
   fi
 
   ZSH_THEME_USER_PROMPT_SUPER_PREFIX=" %{$fg_bold[red]%}"
