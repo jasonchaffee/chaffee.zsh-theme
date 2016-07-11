@@ -138,7 +138,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_JAVA_PROMPT_PREFIX=" [%{$fg[yellow]%}$(java_prompt_prefix)%{$reset_color%}:%{$fg[magenta]%}% "
     ZSH_THEME_JAVA_PROMPT_SUFFIX="%{$reset_color%}]"
   else
-    ZSH_THEME_JAVA_PROMPT_PREFIX=" "
+    ZSH_THEME_JAVA_PROMPT_PREFIX='"
     ZSH_THEME_JAVA_PROMPT_SUFFIX="%{$reset_color%}]"
   fi
 
@@ -146,7 +146,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_GO_PROMPT_PREFIX=" [%{$fg[yellow]%}$GO_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
     ZSH_THEME_GO_PROMPT_SUFFIX="%{$reset_color%}]"
   else
-    ZSH_THEME_GO_PROMPT_PREFIX=" "
+    ZSH_THEME_GO_PROMPT_PREFIX=""
     ZSH_THEME_GO_PROMPT_SUFFIX="%{$reset_color%}"
   fi
 
@@ -154,7 +154,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_NODE_PROMPT_PREFIX=" [%{$fg[yellow]%}$NODE_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
     ZSH_THEME_NODE_PROMPT_SUFFIX="%{$reset_color%}]"
   else
-    ZSH_THEME_NODE_PROMPT_PREFIX=" "
+    ZSH_THEME_NODE_PROMPT_PREFIX=""
     ZSH_THEME_NODE_PROMPT_SUFFIX="%{$reset_color%}"
   fi
 
@@ -162,7 +162,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_PYTHON_PROMPT_PREFIX=" [%{$fg[yellow]%}$PYTHON_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
     ZSH_THEME_PYTHON_PROMPT_SUFFIX="%{$reset_color%}]"
   else
-    ZSH_THEME_PYTHON_PROMPT_PREFIX=" "
+    ZSH_THEME_PYTHON_PROMPT_PREFIX=""
     ZSH_THEME_PYTHON_PROMPT_SUFFIX="%{$reset_color%}"
   fi
 
@@ -170,7 +170,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_RUBY_PROMPT_PREFIX=" [%{$fg[yellow]%}$RUBY_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
     ZSH_THEME_RUBY_PROMPT_SUFFIX="%{$reset_color%}]"
   else
-    ZSH_THEME_RUBY_PROMPT_PREFIX=" "
+    ZSH_THEME_RUBY_PROMPT_PREFIX=""
     ZSH_THEME_RUBY_PROMPT_SUFFIX="%{$reset_color%}"
   fi
 
@@ -178,7 +178,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_SCALA_PROMPT_PREFIX=" [%{$fg[yellow]%}$SCALA_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
     ZSH_THEME_SCALA_PROMPT_SUFFIX="%{$reset_color%}]"
   else
-    ZSH_THEME_SCALA_PROMPT_PREFIX=" "
+    ZSH_THEME_SCALA_PROMPT_PREFIX=""
     ZSH_THEME_SCALA_PROMPT_SUFFIX="%{$reset_color%}"
   fi
 
