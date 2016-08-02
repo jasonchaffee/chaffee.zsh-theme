@@ -83,24 +83,40 @@ function host_prompt_info() {
   echo "$ZSH_THEME_HOST_PROMPT_PREFIX$ZSH_THEME_HOST_PROMPT$ZSH_THEME_HOST_PROMPT_SUFFIX"
 }
 
-function one_line_prompt() {
+function prompt1() {
   echo '$(return_prompt_info)$(java_prompt_info)$(scala_prompt_info)$(go_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)$(user_privilege_prompt_info)'
 }
 
-function two_line_prompt() {
+function prompt2() {
   echo '$(user_prompt_info)$(host_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)
 $(return_prompt_info)$(java_prompt_info)$(scala_prompt_info)$(go_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(user_privilege_prompt_info)'
 }
 
+function prompt3() {
+  echo '$(java_prompt_info)$(scala_prompt_info)$(go_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(user_privilege_prompt_info)
+$(return_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)'
+}
+
+function prompt4() {
+  echo '$(java_prompt_info)$(scala_prompt_info)$(go_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(user_privilege_prompt_info)
+$(return_prompt_info)$(user_prompt_info)$(host_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)'
+}
+
 function prompt_set() {
-  if [[ $1 == 2 ]]; then
-    PROMPT=$(two_line_prompt)
+  if [[ $1 == 1 ]]; then
+    PROMPT=$(prompt1)
+  else if [[ $1 == 2 ]]; then
+    PROMPT=$(prompt2)
+  else if [[ $1 == 3 ]]; then
+    PROMPT=$(prompt3)
+  else if [[ $1 == 4 ]]; then
+    PROMPT=$(prompt4)
   else
-    PROMPT=$(one_line_prompt)
+    PROMPT=$(prompt3)
   fi
 }
 
-PROMPT=$(one_line_prompt)
+PROMPT=$(prompt1)
 
 RPROMPT='$(git_prompt_status)$(svn_dirty)$(svn_dirty_pwd)$(time_prompt_info)$(time_period_prompt_info)'
 
