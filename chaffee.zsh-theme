@@ -94,24 +94,22 @@ $(return_prompt_info)$(java_prompt_info)$(scala_prompt_info)$(go_prompt_info)$(n
 
 function prompt3() {
   echo '$(java_prompt_info)$(scala_prompt_info)$(go_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(user_privilege_prompt_info)
-
 $(return_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)'
 }
 
 function prompt4() {
   echo '$(java_prompt_info)$(scala_prompt_info)$(go_prompt_info)$(node_prompt_info)$(python_prompt_info)$(ruby_prompt_info)$(user_privilege_prompt_info)
-
 $(return_prompt_info)$(user_prompt_info)$(host_prompt_info)$(pwd_prompt_info)$(git_prompt_info)$(svn_prompt_info)'
 }
 
 function prompt_set() {
   if [[ $1 == 1 ]]; then
     PROMPT=$(prompt1)
-  else if [[ $1 == 2 ]]; then
+  elif [[ $1 == 2 ]]; then
     PROMPT=$(prompt2)
-  else if [[ $1 == 3 ]]; then
+  elif [[ $1 == 3 ]]; then
     PROMPT=$(prompt3)
-  else if [[ $1 == 4 ]]; then
+  elif [[ $1 == 4 ]]; then
     PROMPT=$(prompt4)
   else
     PROMPT=$(prompt3)
