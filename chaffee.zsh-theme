@@ -116,7 +116,7 @@ function prompt_set() {
   fi
 }
 
-PROMPT=$(prompt1)
+PROMPT=$(prompt3)
 
 RPROMPT='$(git_prompt_status)$(svn_dirty)$(svn_dirty_pwd)$(time_prompt_info)$(time_period_prompt_info)'
 
