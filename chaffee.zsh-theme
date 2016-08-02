@@ -130,7 +130,7 @@ RUBY_PROMPT_PREFIX=rb
 SCALA_PROMPT_PREFIX=scala
 
 if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
-  ZSH_THEME_USER_PROMPT_PREFIX="%{$fg[yellow]%}"
+  ZSH_THEME_USER_PROMPT_PREFIX="%{$fg[yellow]%} "
   ZSH_THEME_USER_PROMPT="%n"
   ZSH_THEME_USER_PROMPT_SUFFIX="%{$reset_color%}@"
 
