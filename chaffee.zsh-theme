@@ -25,7 +25,7 @@ function java_prompt_info() {
 
 function go_prompt_info() {
   if command -v go >/dev/null 2>&1; then
-    echo "$ZSH_THEME_GO_PROMPT_PREFIX$(go version 2>&1 | grep 'go version' | awk '{print $3}' | tr -d \")$ZSH_THEME_GO_PROMPT_SUFFIX"
+    echo "$ZSH_THEME_GO_PROMPT_PREFIX$(go version 2>&1 | grep 'go version' | awk '{print $3}' | tr -d $ZSH_THEME_GO_PROMPT_PREFIX | tr -d \")$ZSH_THEME_GO_PROMPT_PREFIX)$ZSH_THEME_GO_PROMPT_SUFFIX"
   fi
 }
 
@@ -75,7 +75,7 @@ function pwd_prompt_info() {
   echo "$ZSH_THEME_PWD_PROMPT_PREFIX$ZSH_THEME_PWD_PROMPT$ZSH_THEME_PWD_PROMPT_SUFFIX"
 }
 
-fuction user_prompt_info() {
+function user_prompt_info() {
   echo "$ZSH_THEME_USER_PROMPT_PREFIX$ZSH_THEME_USER_PROMPT$ZSH_THEME_USER_PROMPT_SUFFIX"
 }
 
@@ -261,7 +261,7 @@ else
     ZSH_THEME_JAVA_PROMPT_SUFFIX=""
   fi
 
-  if command -v GO >/dev/null 2>&1; then
+  if command -v go >/dev/null 2>&1; then
     ZSH_THEME_GO_PROMPT_PREFIX=" [$GO_PROMPT_PREFIX:"
     ZSH_THEME_GO_PROMPT_SUFFIX="]"
   else
