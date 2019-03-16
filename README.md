@@ -12,5 +12,7 @@ It will list the current version of the following programing languages in the sh
 
 If a a language is not installed, it will be omitted from the display.
 
-# Screenshot
+# Screenshots
 ![ScreenShot](screenshot.png)
+
+![ScreenShotAll](screenshot-all.png)
