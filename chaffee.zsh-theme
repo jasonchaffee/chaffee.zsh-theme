@@ -38,8 +38,10 @@ function node_prompt_info() {
 }
 
 function python_prompt_info() {
-  if command -v python >/dev/null 2>&1; then
-    echo "$ZSH_THEME_PYTHON_PROMPT_PREFIX$(python --version 2>&1 | grep 'Python' | awk '{print $2}' | tr -d \")$ZSH_THEME_PYTHON_PROMPT_SUFFIX"
+  if command -v python3 >/dev/null 2>&1; then
+    echo "$ZSH_THEME_PYTHON_PROMPT_PREFIX$(python3 -V 2>&1 | grep 'Python' | awk '{print $2}' | tr -d \")$ZSH_THEME_PYTHON_PROMPT_SUFFIX"
+  elif command -v python >/dev/null 2>&1; then
+    echo "$ZSH_THEME_PYTHON_PROMPT_PREFIX$(python -V 2>&1 | grep 'Python' | awk '{print $2}' | tr -d \")$ZSH_THEME_PYTHON_PROMPT_SUFFIX"
   fi
 }
 
@@ -56,7 +58,7 @@ function scala_prompt_info() {
 }
 
 function return_prompt_info() {
-  echo "%(?.$ZSH_THEME_RETURN_PROMPT_SUCCESS_PREFIX$ZSH_THEME_RETURN_PROMPT_SUCCESS$ZSH_THEME_RETURN_PROMPT_SUCCESS_SUFFIX.$ZSH_THEME_RETURN_PROMPT_ERROR_PREFIX$ZSH_THEME_RETURN_PROMPT_ERROR$ZSH_THEME_RETURN_PROMPT_ERROR_SUFFIX)"
+  echo "%(?.$ZSH_THEME_RETURN_PROMPT_SUCCESS_PREFIX$ZSH_THEME_RETURN_PROMPyT_SUCCESS$ZSH_THEME_RETURN_PROMPT_SUCCESS_SUFFIX.$ZSH_THEME_RETURN_PROMPT_ERROR_PREFIX$ZSH_THEME_RETURN_PROMPT_ERROR$ZSH_THEME_RETURN_PROMPT_ERROR_SUFFIX)"
 }
 
 function user_privilege_prompt_info() {
@@ -174,7 +176,10 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
     ZSH_THEME_NODE_PROMPT_SUFFIX=""
   fi
 
-  if command -v python >/dev/null 2>&1; then
+  if command -v python3 >/dev/null 2>&1; then
+    ZSH_THEME_PYTHON_PROMPT_PREFIX=" [%{$fg[yellow]%}$PYTHON_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
+    ZSH_THEME_PYTHON_PROMPT_SUFFIX="%{$reset_color%}]"
+  elif command -v python >/dev/null 2>&1;
     ZSH_THEME_PYTHON_PROMPT_PREFIX=" [%{$fg[yellow]%}$PYTHON_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
     ZSH_THEME_PYTHON_PROMPT_SUFFIX="%{$reset_color%}]"
   else
@@ -277,7 +282,10 @@ else
     ZSH_THEME_NODE_PROMPT_SUFFIX=""
   fi
 
-  if command -v python >/dev/null 2>&1; then
+  if command -v python3 >/dev/null 2>&1; then
+    ZSH_THEME_PYTHON_PROMPT_PREFIX=" [$PYTHON_PROMPT_PREFIX:"
+    ZSH_THEME_PYTHON_PROMPT_SUFFIX="]"
+  elif command -v python >/dev/null 2>&1;
     ZSH_THEME_PYTHON_PROMPT_PREFIX=" [$PYTHON_PROMPT_PREFIX:"
     ZSH_THEME_PYTHON_PROMPT_SUFFIX="]"
   else
