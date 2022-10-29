@@ -179,7 +179,7 @@ if [[ "$TERM" != "dumb" ]] && [[ "$DISABLE_LS_COLORS" != "true" ]]; then
   if command -v python3 >/dev/null 2>&1; then
     ZSH_THEME_PYTHON_PROMPT_PREFIX=" [%{$fg[yellow]%}$PYTHON_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
     ZSH_THEME_PYTHON_PROMPT_SUFFIX="%{$reset_color%}]"
-  elif command -v python >/dev/null 2>&1;
+  elif command -v python >/dev/null 2>&1; then
     ZSH_THEME_PYTHON_PROMPT_PREFIX=" [%{$fg[yellow]%}$PYTHON_PROMPT_PREFIX%{$reset_color%}:%{$fg[magenta]%}% "
     ZSH_THEME_PYTHON_PROMPT_SUFFIX="%{$reset_color%}]"
   else
@@ -285,7 +285,7 @@ else
   if command -v python3 >/dev/null 2>&1; then
     ZSH_THEME_PYTHON_PROMPT_PREFIX=" [$PYTHON_PROMPT_PREFIX:"
     ZSH_THEME_PYTHON_PROMPT_SUFFIX="]"
-  elif command -v python >/dev/null 2>&1;
+  elif command -v python >/dev/null 2>&1; then
     ZSH_THEME_PYTHON_PROMPT_PREFIX=" [$PYTHON_PROMPT_PREFIX:"
     ZSH_THEME_PYTHON_PROMPT_SUFFIX="]"
   else
