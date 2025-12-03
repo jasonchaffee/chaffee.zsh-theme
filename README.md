@@ -3,6 +3,7 @@
 # DEPRECATED
 Use  https://github.com/jasonchaffee/zsh/themes/jasonchaffee instead.
 
+# Introduction
 The Chaffee zsh theme based on sorin.zsh-theme.
 
 It will list the current version of the following programing languages in the shell.
